@@ -18,14 +18,14 @@ public class ResidentRestController {
     private final ResidentService residentService;
 
     @PostMapping
-    public ResponseEntity<Resident> postResident(@RequestBody @Valid ResidentRegisterRequestDto request) {
+    public ResponseEntity<Resident> registerResident(@RequestBody @Valid ResidentRegisterRequestDto request) {
         Resident resident = residentService.registerResident(request);
         return ResponseEntity.created(URI.create("/residents/" + resident.getResidentSerialNumber())).body(resident);
     }
 
     @PutMapping("/{no}")
-    public ResponseEntity<Resident> putResident(@PathVariable("no") Integer residentSerialNumber,
-                                            @RequestBody @Valid ResidentModifyRequestDto request) {
+    public ResponseEntity<Resident> modifyResident(@PathVariable("no") Integer residentSerialNumber,
+                                                   @RequestBody @Valid ResidentModifyRequestDto request) {
         Resident resident = residentService.modifyResident(residentSerialNumber, request);
         return ResponseEntity.ok(resident);
     }
