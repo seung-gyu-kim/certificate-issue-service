@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import com.nhnacademy.edu.certificateissueservice.dto.ResidentModifyRequestDto;
 import com.nhnacademy.edu.certificateissueservice.dto.ResidentRegisterRequestDto;
 import com.nhnacademy.edu.certificateissueservice.entity.Resident;
 import com.nhnacademy.edu.certificateissueservice.service.ResidentService;
@@ -24,8 +25,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -108,12 +111,47 @@ class ResidentRestControllerTest {
     }
 
     @Test
-    void putResident() {
+    void putResident() throws Exception {
         // given
+        Resident resident = new Resident();
+        resident.setResidentSerialNumber(10);
+        resident.setName("남길동");
+        resident.setResidentRegistrationNumber("130914-1234561");
+        resident.setGenderCode("남");
+        resident.setBirthDate(LocalDateTime.parse("19130914072200", DateTimeFormatter.ofPattern("yyyyMMddHHmmss")));
+        resident.setBirthPlaceCode("자택");
+        resident.setRegistrationBaseAddress("경기도 성남시 분당구 대왕판교로645번길");
+        resident.setDeathDate(LocalDateTime.parse("20210429090300", DateTimeFormatter.ofPattern("yyyyMMddHHmmss")));
+        resident.setDeathPlaceCode("주택");
+        resident.setDeathPlaceAddress("강원도 고성군 금강산로 290번길");
 
-        // when
+        when(residentService.modifyResident(anyInt(), any(ResidentModifyRequestDto.class))).thenReturn(resident);
 
-        // then
+        String request = "{\n" +
+                "  \"deathDate\" : \"20210429090300\",\n" +
+                "  \"deathPlaceCode\" : \"주택\",\n" +
+                "  \"deathPlaceAddress\" : \"강원도 고성군 금강산로 290번길\"\n" +
+                "}";
+
+        // when & then
+        mockMvc.perform(put("/residents/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .content(request))
+                .andDo(print())
+                .andDo(log())
+                .andExpect(status().isOk())
+                .andExpectAll(
+                        jsonPath("$.residentSerialNumber").value(10),
+                        jsonPath("$.name").value("남길동"),
+                        jsonPath("$.residentRegistrationNumber").value("130914-1234561"),
+                        jsonPath("$.genderCode").value("남"),
+                        jsonPath("$.birthDate").value("1913-09-14T07:22:00"),
+                        jsonPath("$.birthPlaceCode").value("자택"),
+                        jsonPath("$.registrationBaseAddress").value("경기도 성남시 분당구 대왕판교로645번길"),
+                        jsonPath("$.deathDate").value("2021-04-29T09:03:00"),
+                        jsonPath("$.deathPlaceCode").value("주택"),
+                        jsonPath("$.deathPlaceAddress").value("강원도 고성군 금강산로 290번길"));
     }
 
     public ObjectMapper objectMapper() {

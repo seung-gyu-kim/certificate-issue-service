@@ -37,8 +37,8 @@ public class ResidentServiceImpl implements ResidentService {
 
     @Transactional
     @Override
-    public Resident modifyResident(Integer residentSerialNumber, ResidentModifyRequestDto residentModifyRequestDto) {
-        Resident resident = residentRepository.findById(residentSerialNumber).orElseThrow(() -> new ResidentNotFoundException(residentSerialNumber));
+    public Resident modifyResident(Integer serialNumber, ResidentModifyRequestDto residentModifyRequestDto) {
+        Resident resident = residentRepository.findById(serialNumber).orElseThrow(() -> new ResidentNotFoundException(serialNumber));
         if(!Objects.isNull(residentModifyRequestDto.getName())) resident.setName(residentModifyRequestDto.getName());
         if(!Objects.isNull(residentModifyRequestDto.getResidentRegistrationNumber())) resident.setResidentRegistrationNumber(residentModifyRequestDto.getResidentRegistrationNumber());
         if(!Objects.isNull(residentModifyRequestDto.getGenderCode())) resident.setGenderCode(residentModifyRequestDto.getGenderCode());

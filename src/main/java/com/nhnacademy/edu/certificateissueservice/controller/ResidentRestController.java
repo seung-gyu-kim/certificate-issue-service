@@ -23,10 +23,10 @@ public class ResidentRestController {
         return ResponseEntity.created(URI.create("/residents/" + resident.getResidentSerialNumber())).body(resident);
     }
 
-    @PutMapping("/{no}")
-    public ResponseEntity<Resident> modifyResident(@PathVariable("no") Integer residentSerialNumber,
+    @PutMapping("/{serialNumber}")
+    public ResponseEntity<Resident> modifyResident(@PathVariable Integer serialNumber,
                                                    @RequestBody @Valid ResidentModifyRequestDto request) {
-        Resident resident = residentService.modifyResident(residentSerialNumber, request);
+        Resident resident = residentService.modifyResident(serialNumber, request);
         return ResponseEntity.ok(resident);
     }
 }

@@ -6,5 +6,5 @@ import com.nhnacademy.edu.certificateissueservice.entity.Resident;
 
 public interface ResidentService {
     Resident registerResident(ResidentRegisterRequestDto residentRegisterRequestDto);
-    Resident modifyResident(Integer residentSerialNumber, ResidentModifyRequestDto residentModifyRequestDto);
+    Resident modifyResident(Integer serialNumber, ResidentModifyRequestDto residentModifyRequestDto);
 }
