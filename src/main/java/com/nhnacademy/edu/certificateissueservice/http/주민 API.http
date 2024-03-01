@@ -1,0 +1,28 @@
+### 주민 API (주민 자체 정보만 등록/수정) 등록 POST /residents
+POST http://localhost:8080/residents
+Content-Type: application/json
+Accept: application/json
+
+{
+  "residentSerialNumber" : 10,
+  "name" : "남길동",
+  "residentRegistrationNumber" : "130914-1234561",
+  "genderCode" : "남",
+  "birthDate" : "19130914072200",
+  "birthPlaceCode" : "자택",
+  "registrationBaseAddress" : "경기도 성남시 분당구 대왕판교로645번길",
+  "deathDate" : "20210429090300",
+  "deathPlaceCode" : "주택",
+  "deathPlaceAddress" : "강원도 고성군 금강산로 290번길"
+}
+
+### 주민 API (주민 자체 정보만 등록/수정) 수정 PUT /residents/{serialNumber}
+PUT http://localhost:8080/residents/2
+Content-Type: application/json
+Accept: application/json
+
+{
+  "deathDate" : "20210429090300",
+  "deathPlaceCode" : "주택",
+  "deathPlaceAddress" : "강원도 고성군 금강산로 290번길"
+}
