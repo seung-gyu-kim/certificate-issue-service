@@ -27,12 +27,9 @@ create table resident
    primary key (resident_serial_number)
 );
  */
-@Getter
-@Setter
-@ToString
+@Getter @Setter @ToString
 @NoArgsConstructor
-@Entity
-@Table(name = "resident")
+@Entity @Table(name = "resident")
 public class Resident {
     @Id
     @Column(name = "resident_serial_number", nullable = false, columnDefinition = "INT(11)")

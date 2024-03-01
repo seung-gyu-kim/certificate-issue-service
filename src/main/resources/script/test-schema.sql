@@ -27,14 +27,14 @@ create table resident
 create table birth_death_report_resident
 (
    resident_serial_number           int(11)     not null,
-   birth_death_type_code            varchar(20) not null,
+   birth_death_type_code            varchar(2) not null,
    report_resident_serial_number    int(11)     not null,
    birth_death_report_date          date        not null,
    birth_report_qualifications_code varchar(20) null,
    death_report_qualifications_code varchar(20) null,
    email_address                    varchar(50) null,
    phone_number                     varchar(20) not null,
-   primary key (resident_serial_number, birth_death_type_code)
+   primary key (resident_serial_number, birth_death_type_code, report_resident_serial_number)
 );
 
 create table family_relationship
