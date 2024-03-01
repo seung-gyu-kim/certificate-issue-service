@@ -1,0 +1,23 @@
+### 가족관계 API 등록
+POST http://localhost:8080/residents/1/relationship
+Content-Type: application/json
+Accept: application/json
+
+{
+  "familySerialNumber": 3,
+  "relationShip": "father"
+}
+
+### 가족관계 API 수정
+PUT http://localhost:8080/residents/1/relationship/2
+Content-Type: application/json
+Accept: application/json
+
+{
+  "relationShip": "mother"
+}
+
+### 가족관계 API 삭제
+DELETE http://localhost:8080/residents/1/relationship/2
+Content-Type: application/json
+Accept: application/json

@@ -13,12 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Objects;
 
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
+@Transactional
 @Service
 public class ResidentServiceImpl implements ResidentService {
     private final ResidentRepository residentRepository;
 
-    @Transactional
     @Override
     public Resident registerResident(ResidentRegisterRequestDto residentRegisterRequestDto) {
         Resident resident = new Resident();
@@ -35,7 +34,6 @@ public class ResidentServiceImpl implements ResidentService {
         return residentRepository.save(resident);
     }
 
-    @Transactional
     @Override
     public Resident modifyResident(Integer serialNumber, ResidentModifyRequestDto residentModifyRequestDto) {
         Resident resident = residentRepository.findById(serialNumber).orElseThrow(() -> new ResidentNotFoundException(serialNumber));
