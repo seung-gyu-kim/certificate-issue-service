@@ -47,11 +47,6 @@ public class BirthDeathReportResident {
     @JoinColumn(name = "resident_serial_number", nullable = false, columnDefinition = "INT(11)")
     Resident resident;
 
-    @MapsId("reportResidentSerialNumber")
-    @ManyToOne
-    @JoinColumn(name = "report_resident_serial_number", nullable = false, columnDefinition = "INT(11)")
-    Resident reportResident;
-
     @AllArgsConstructor
     @NoArgsConstructor
     @EqualsAndHashCode
