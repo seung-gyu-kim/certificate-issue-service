@@ -1,0 +1,25 @@
+### 세대 전입 주소 등록 POST /household/{householdSerialNumber}/movement
+POST http://localhost:8080/household/1/movement
+Content-Type: application/json
+Accept: application/json
+
+{
+  "houseMovementReportDate": "20230305",
+  "houseMovementAddress": "대전 유성구 가정로 63",
+  "lastAddressYn": "Y"
+}
+
+### 세대 전입 주소 수정 PUT /household/{householdSerialNumber}/movement/{reportDate}
+PUT http://localhost:8080/household/1/movement/20130305
+Content-Type: application/json
+Accept: application/json
+
+{
+  "houseMovementAddress": "서울시 동작구 상도로 940번길",
+  "lastAddressYn": "N"
+}
+
+### 세대 전입 주소 삭제 DELETE /household/{householdSerialNumber}/movement/{reportDate}
+DELETE http://localhost:8080/household/1/movement/20130305
+Content-Type: application/json
+Accept: application/json
