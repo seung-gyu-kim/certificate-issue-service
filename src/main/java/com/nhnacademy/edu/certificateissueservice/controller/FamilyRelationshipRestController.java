@@ -35,7 +35,7 @@ public class FamilyRelationshipRestController {
     }
 
     @DeleteMapping("/{familySerialNumber}")
-    public ResponseEntity<FamilyRelationship> removeFamilyRelationship(@PathVariable Integer serialNumber,
+    public ResponseEntity<Void> removeFamilyRelationship(@PathVariable Integer serialNumber,
                                                                        @PathVariable Integer familySerialNumber) {
         familyRelationshipService.removeFamilyRelationship(serialNumber, familySerialNumber);
         return ResponseEntity.noContent().build();

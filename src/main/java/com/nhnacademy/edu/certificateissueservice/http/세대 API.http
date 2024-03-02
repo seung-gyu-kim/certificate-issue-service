@@ -1,0 +1,16 @@
+### 세대 등록 POST /household
+POST http://localhost:8080/household
+Content-Type: application/json
+Accept: application/json
+
+{
+  "householdCompositionDate": "20091002",
+  "householdCompositionReasonCode": "세대분리",
+  "currentHouseMovementAddress": "경기도 성남시 분당구 대왕판교로 645번길",
+  "householdResidentSerialNumber": 1
+}
+
+### 세대 삭제 DELETE /household/{householdSerialNumber}
+DELETE http://localhost:8080/household/1
+Content-Type: application/json
+Accept: application/json
