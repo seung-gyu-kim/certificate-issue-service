@@ -1,0 +1,28 @@
+### 사망 신고 API 등록
+#insert into birth_death_report_resident values (7, '출생', 4, '20120317', '부', null, 'nam@nhnad.co.kr', '010-1234-5678');
+POST http://localhost:8080/residents/1/death
+Content-Type: application/json
+Accept: application/json
+
+{
+  "targetSerialNumber": 4,
+  "birthDeathReportDate": "19790510",
+  "reportQualificationsCode": "부",
+  "emailAddress": "nam@nhnad.co.kr",
+  "phoneNumber": "010-1234-5678"
+}
+
+### 사망 신고 API 수정
+PUT http://localhost:8080/residents/2/death/1
+Content-Type: application/json
+Accept: application/json
+
+{
+  "reportQualificationsCode": "부",
+  "emailAddress": "nam@nhnad.co.kr"
+}
+
+### 사망 신고 API 삭제
+DELETE http://localhost:8080/residents/2/death/1
+Content-Type: application/json
+Accept: application/json
