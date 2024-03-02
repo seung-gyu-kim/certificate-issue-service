@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import java.time.LocalDate;
 
 @Getter
@@ -14,6 +15,10 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BirthDeathReportRegisterRequestDto {
+    @Null
+    private Integer reportResidentSerialNumber;
+    @Null
+    private Boolean isBirthReport;
     @NotNull
     private Integer targetSerialNumber;
     @NotNull
@@ -21,7 +26,6 @@ public class BirthDeathReportRegisterRequestDto {
     private LocalDate birthDeathReportDate;
     @NotNull
     private String reportQualificationsCode;
-    @NotNull
     private String emailAddress;
     @NotNull
     private String phoneNumber;

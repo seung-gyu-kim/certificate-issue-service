@@ -23,39 +23,52 @@ public class BirthDeathReportResidentServiceImpl implements BirthDeathReportResi
     private final ResidentRepository residentRepository;
 
     @Override
-    public BirthDeathReportResident registerBirthReport(Integer reportResidentSerialNumber, BirthDeathReportRegisterRequestDto request) {
+    public BirthDeathReportResident registerBirthDeathReportResident(BirthDeathReportRegisterRequestDto request) {
+        if(Objects.isNull(request.getIsBirthReport())) throw new IllegalArgumentException("isBirthReport is null");
+
         Resident resident = residentRepository.findById(request.getTargetSerialNumber())
                 .orElseThrow(() -> new ResidentNotFoundException(request.getTargetSerialNumber()));
 
-        BirthDeathReportResident birthDeathReportResident = new BirthDeathReportResident();
         BirthDeathReportResident.PK pk = new BirthDeathReportResident.PK(
                 request.getTargetSerialNumber(),
-                "출생",
-                reportResidentSerialNumber);
-        birthDeathReportResident.setPk(pk);
-        birthDeathReportResident.setBirthDeathReportDate(request.getBirthDeathReportDate());
-        birthDeathReportResident.setBirthReportQualificationsCode(request.getReportQualificationsCode());
-        birthDeathReportResident.setEmailAddress(request.getEmailAddress());
-        birthDeathReportResident.setPhoneNumber(request.getPhoneNumber());
-        birthDeathReportResident.setResident(resident);
+                Boolean.TRUE.equals(request.getIsBirthReport()) ? "출생" : "사망",
+                request.getReportResidentSerialNumber());
+
+        BirthDeathReportResident birthDeathReportResident = BirthDeathReportResident.of(request, pk, resident);
+
         return birthDeathReportResidentRepository.save(birthDeathReportResident);
     }
 
     @Override
-    public BirthDeathReportResident modifyBirthReport(Integer reportResidentSerialNumber, Integer targetResidentSerialNumber, BirthDeathReportModifyRequestDto request) {
-        BirthDeathReportResident.PK pk = new BirthDeathReportResident.PK(targetResidentSerialNumber, "출생", reportResidentSerialNumber);
-        BirthDeathReportResident birthReport = birthDeathReportResidentRepository.findById(pk).orElseThrow(() -> new BirthReportResidentNotFoundException(pk));
+    public BirthDeathReportResident modifyBirthDeathReportResident(BirthDeathReportModifyRequestDto request) {
+        if(Objects.isNull(request.getIsBirthReport())) throw new IllegalArgumentException("isBirthReport is null");
 
-        if(!Objects.isNull(request.getBirthDeathReportDate())) birthReport.setBirthDeathReportDate(request.getBirthDeathReportDate());
-        if(!Objects.isNull(request.getReportQualificationsCode())) birthReport.setBirthReportQualificationsCode(request.getReportQualificationsCode());
-        if(!Objects.isNull(request.getEmailAddress())) birthReport.setEmailAddress(request.getEmailAddress());
-        if(!Objects.isNull(request.getPhoneNumber())) birthReport.setPhoneNumber(request.getPhoneNumber());
-        return birthReport;
+        BirthDeathReportResident.PK pk = new BirthDeathReportResident.PK(
+                request.getTargetSerialNumber(),
+                Boolean.TRUE.equals(request.getIsBirthReport()) ? "출생" : "사망",
+                request.getReportResidentSerialNumber());
+
+        BirthDeathReportResident reportResident = birthDeathReportResidentRepository.findById(pk).orElseThrow(() -> new BirthReportResidentNotFoundException(pk));
+
+        if(!Objects.isNull(request.getBirthDeathReportDate())) reportResident.setBirthDeathReportDate(request.getBirthDeathReportDate());
+        if(!Objects.isNull(request.getReportQualificationsCode())) {
+            if(Boolean.TRUE.equals(request.getIsBirthReport())) {
+                reportResident.setBirthReportQualificationsCode(request.getReportQualificationsCode());
+            } else {
+                reportResident.setDeathReportQualificationsCode(request.getReportQualificationsCode());
+            }
+        }
+        if(!Objects.isNull(request.getEmailAddress())) reportResident.setEmailAddress(request.getEmailAddress());
+        if(!Objects.isNull(request.getPhoneNumber())) reportResident.setPhoneNumber(request.getPhoneNumber());
+
+        return reportResident;
     }
 
     @Override
-    public void deleteBirthReport(Integer reportResidentSerialNumber, Integer targetResidentSerialNumber) {
+    public void deleteBirthDeathReportResident(Integer reportResidentSerialNumber, Integer targetResidentSerialNumber, boolean isBirthReport) {
         birthDeathReportResidentRepository.deleteById(new BirthDeathReportResident.PK(
-                targetResidentSerialNumber, "출생", reportResidentSerialNumber));
+                targetResidentSerialNumber,
+                isBirthReport ? "출생" : "사망",
+                reportResidentSerialNumber));
     }
 }

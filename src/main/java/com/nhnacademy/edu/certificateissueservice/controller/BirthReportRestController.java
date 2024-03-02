@@ -19,8 +19,10 @@ public class BirthReportRestController {
 
     @PostMapping
     public ResponseEntity<BirthDeathReportResident> registerBirthReport(@PathVariable("serialNumber") Integer reportSerialNumber,
-                                                                        @RequestBody @Valid BirthDeathReportRegisterRequestDto request) {
-        BirthDeathReportResident save = birthDeathReportResidentService.registerBirthReport(reportSerialNumber, request);
+                                                                        @RequestBody @Valid BirthDeathReportRegisterRequestDto birthDeathReportRegisterRequestDto) {
+        birthDeathReportRegisterRequestDto.setIsBirthReport(true);
+        birthDeathReportRegisterRequestDto.setReportResidentSerialNumber(reportSerialNumber);
+        BirthDeathReportResident save = birthDeathReportResidentService.registerBirthDeathReportResident(birthDeathReportRegisterRequestDto);
         return ResponseEntity.created(URI.create(String.format("/residents/%d/birth/%d",
                         save.getPk().getResidentSerialNumber(),
                         save.getPk().getReportResidentSerialNumber())))
@@ -31,15 +33,18 @@ public class BirthReportRestController {
     @PutMapping("/{targetSerialNumber}")
     public ResponseEntity<BirthDeathReportResident> modifyBirthReport(@PathVariable("serialNumber") Integer reportSerialNumber,
                                                                       @PathVariable Integer targetSerialNumber,
-                                                                      @RequestBody @Valid BirthDeathReportModifyRequestDto request) {
-        BirthDeathReportResident birthDeathReportResident = birthDeathReportResidentService.modifyBirthReport(reportSerialNumber, targetSerialNumber, request);
+                                                                      @RequestBody @Valid BirthDeathReportModifyRequestDto birthDeathReportModifyRequestDto) {
+        birthDeathReportModifyRequestDto.setIsBirthReport(true);
+        birthDeathReportModifyRequestDto.setReportResidentSerialNumber(reportSerialNumber);
+        birthDeathReportModifyRequestDto.setTargetSerialNumber(targetSerialNumber);
+        BirthDeathReportResident birthDeathReportResident = birthDeathReportResidentService.modifyBirthDeathReportResident(birthDeathReportModifyRequestDto);
         return ResponseEntity.ok(birthDeathReportResident);
     }
 
     @DeleteMapping("/{targetSerialNumber}")
     public ResponseEntity<Void> deleteBirthReport(@PathVariable("serialNumber") Integer reportSerialNumber,
                                                   @PathVariable Integer targetSerialNumber) {
-        birthDeathReportResidentService.deleteBirthReport(reportSerialNumber, targetSerialNumber);
+        birthDeathReportResidentService.deleteBirthDeathReportResident(reportSerialNumber, targetSerialNumber, true);
         return ResponseEntity.noContent().build();
     }
 }
