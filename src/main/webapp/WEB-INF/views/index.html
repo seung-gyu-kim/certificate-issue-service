@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <thead>
+        <tr>
+            <th>이름</th>
+            <th>주민등록등본</th>
+            <th>가족관계증명서</th>
+            <th>출생신고서</th>
+
+            <th>사망신고서</th>
+            <th>발급목록</th>
+            <th>삭제</th>
+        </tr>
+        </thead>
+        <tbody th:each="residentReport, status : ${residentReportPage}" th:object="${residentReport}">
+        <tr>
+            <td th:text="*{name}"></td>
+            <td><a th:href="@{/}">주민등록등본</a></td>
+            <td><a th:href="@{/}">가족관계증명서</a></td>
+            <td><a th:if="*{hasBirthReport}" th:href="@{/}">출생신고서</a></td>
+            <td><a th:if="*{hasDeathReport}" th:href="@{/}">사망신고서</a></td>
+            <td><a th:href="@{/}">발급목록</a></td>
+            <td><a th:href="@{/}">삭제</a></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div>
+        <th:block th:each="pageNumber : ${#numbers.sequence(0, residentReportPage.getTotalPages() - 1)}">
+            <a th:href="@{/(size=${residentReportPage.getSize()}, page=${pageNumber}, sort=${residentReportPage.getSort()})}" th:text="${pageNumber + 1}"></a>
+        </th:block>
+    </div>
+</body>
+</html>
