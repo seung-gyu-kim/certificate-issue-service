@@ -8,7 +8,7 @@ import com.nhnacademy.edu.certificateissueservice.repository.BirthDeathReportRes
 import com.nhnacademy.edu.certificateissueservice.repository.FamilyRelationshipRepository;
 import com.nhnacademy.edu.certificateissueservice.repository.HouseholdCompositionResidentRepository;
 import com.nhnacademy.edu.certificateissueservice.repository.ResidentRepository;
-import com.nhnacademy.edu.certificateissueservice.service.BirthDeathReportResidentService;
+import com.nhnacademy.edu.certificateissueservice.service.BirthReportResidentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +21,7 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
-public class BirthDeathReportResidentServiceImpl implements BirthDeathReportResidentService {
+public class BirthReportResidentServiceImpl implements BirthReportResidentService {
     private final BirthDeathReportResidentRepository birthDeathReportResidentRepository;
     private final ResidentRepository residentRepository;
     private final FamilyRelationshipRepository familyRelationshipRepository;
@@ -50,7 +50,7 @@ public class BirthDeathReportResidentServiceImpl implements BirthDeathReportResi
         );
         birthDeathReportResident.setPk(pk);
         birthDeathReportResident.setBirthDeathReportDate(requestDto.getBirthReportDate());
-        birthDeathReportResident.setBirthReportQualificationsCode(requestDto.getReportResident().getReportQualificationsCode());
+        birthDeathReportResident.setBirthReportQualificationsCode(requestDto.getReportResident().getBirthReportQualificationsCode());
         birthDeathReportResident.setEmailAddress(requestDto.getReportResident().getEmailAddress());
         birthDeathReportResident.setPhoneNumber(requestDto.getReportResident().getPhoneNumber());
         birthDeathReportResident.setResident(targetResident);
@@ -128,7 +128,7 @@ public class BirthDeathReportResidentServiceImpl implements BirthDeathReportResi
 
     @Override
     @Transactional
-    public BirthDeathReportResident modifyBirthDeathReportResident(Integer reportSerialNumber, Integer targetSerialNumber, BirthReportRequestDto requestDto) {
+    public BirthDeathReportResident modifyBirthReportResident(Integer reportSerialNumber, Integer targetSerialNumber, BirthReportRequestDto requestDto) {
         Resident targetResident = residentRepository.findById(targetSerialNumber).orElseThrow(() -> new ResidentNotFoundException(targetSerialNumber));
         targetResident.setName(requestDto.getTargetResident().getName());
         targetResident.setResidentRegistrationNumber(getResidentRegistrationNumber(requestDto.getTargetResident().getBirthDate()));
@@ -151,7 +151,7 @@ public class BirthDeathReportResidentServiceImpl implements BirthDeathReportResi
         );
         birthDeathReportResident.setPk(pk);
         birthDeathReportResident.setBirthDeathReportDate(requestDto.getBirthReportDate());
-        birthDeathReportResident.setBirthReportQualificationsCode(requestDto.getReportResident().getReportQualificationsCode());
+        birthDeathReportResident.setBirthReportQualificationsCode(requestDto.getReportResident().getBirthReportQualificationsCode());
         birthDeathReportResident.setEmailAddress(requestDto.getReportResident().getEmailAddress());
         birthDeathReportResident.setPhoneNumber(requestDto.getReportResident().getPhoneNumber());
         birthDeathReportResident.setResident(targetResident);
@@ -219,7 +219,7 @@ public class BirthDeathReportResidentServiceImpl implements BirthDeathReportResi
 
     @Override
     @Transactional
-    public void deleteBirthDeathReportResident(Integer reportSerialNumber, Integer targetSerialNumber) {
+    public void removeBirthReportResident(Integer reportSerialNumber, Integer targetSerialNumber) {
         residentRepository.deleteById(targetSerialNumber);
         birthDeathReportResidentRepository.deleteById(new BirthDeathReportResident.PK(targetSerialNumber, "출생", reportSerialNumber));
         familyRelationshipRepository.deleteAllByPk_BaseResidentSerialNumber(targetSerialNumber);

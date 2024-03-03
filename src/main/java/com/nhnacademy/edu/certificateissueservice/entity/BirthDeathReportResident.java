@@ -1,6 +1,7 @@
 package com.nhnacademy.edu.certificateissueservice.entity;
 
-import com.nhnacademy.edu.certificateissueservice.enums.ReportQualificationsCode;
+import com.nhnacademy.edu.certificateissueservice.enums.BirthReportQualificationsCode;
+import com.nhnacademy.edu.certificateissueservice.enums.DeathReportQualificationsCode;
 import lombok.*;
 
 import javax.persistence.*;
@@ -33,10 +34,11 @@ public class BirthDeathReportResident {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "birth_report_qualifications_code", length = 20)
-    private ReportQualificationsCode birthReportQualificationsCode;
+    private BirthReportQualificationsCode birthReportQualificationsCode;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "death_report_qualifications_code", length = 20)
-    private String deathReportQualificationsCode;
+    private DeathReportQualificationsCode deathReportQualificationsCode;
 
     @Column(name = "email_address", length = 50)
     private String emailAddress;

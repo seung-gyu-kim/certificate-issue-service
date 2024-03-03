@@ -1,15 +1,24 @@
 ### 사망 신고 API 등록
-#insert into birth_death_report_resident values (7, '출생', 4, '20120317', '부', null, 'nam@nhnad.co.kr', '010-1234-5678');
-POST http://localhost:8080/residents/1/death
+POST http://localhost:8080/residents/3/death
 Content-Type: application/json
 Accept: application/json
 
 {
-  "targetSerialNumber": 4,
-  "birthDeathReportDate": "19790510",
-  "reportQualificationsCode": "부",
-  "emailAddress": "nam@nhnad.co.kr",
-  "phoneNumber": "010-1234-5678"
+  "deathReportDate": "20200502",
+  "targetResident": {
+    "name" : "남석환",
+    "residentRegistrationNumber" : "540514-1234562",
+    "deathDate" : "20210429090300",
+    "deathPlaceCode" : "주택",
+    "deathPlaceAddress" : "강원도 고성군 금강산로 290번길"
+  },
+  "reportResident": {
+    "name" : "박한나",
+    "residentRegistrationNumber" : "551022-1234563",
+    "deathBirthReportQualificationsCode": "동거친족",
+    "emailAddress": "nam@nhnad.co.kr",
+    "phoneNumber": "010-1234-5678"
+  }
 }
 
 ### 사망 신고 API 수정
@@ -18,8 +27,21 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "reportQualificationsCode": "부",
-  "emailAddress": "nam@nhnad.co.kr"
+  "deathReportDate": "20200502",
+  "targetResident": {
+    "name" : "남길동",
+    "residentRegistrationNumber" : "130914-1234561",
+    "deathDate" : "20210429090300",
+    "deathPlaceCode" : "병원",
+    "deathPlaceAddress" : "강원도 고성군 금강산로 290번길"
+  },
+  "reportResident": {
+    "name" : "남석환",
+    "residentRegistrationNumber" : "540514-1234562",
+    "deathBirthReportQualificationsCode": "비동거친족",
+    "emailAddress": "nam@nhnad.co.kr",
+    "phoneNumber": "010-1234-5678"
+  }
 }
 
 ### 사망 신고 API 삭제

@@ -23,7 +23,7 @@ Accept: application/json
   "reportResident": {
     "name" : "남기준",
     "residentRegistrationNumber" : "130914-1234561",
-    "reportQualificationsCode": "부",
+    "birthReportQualificationsCode": "부",
     "emailAddress": "nam@nhnad.co.kr",
     "phoneNumber": "010-1234-5678"
   }
@@ -54,7 +54,7 @@ Accept: application/json
   "reportResident": {
     "name" : "남기준",
     "residentRegistrationNumber" : "130914-1234561",
-    "reportQualificationsCode": "부",
+    "birthReportQualificationsCode": "부",
     "emailAddress": "nam2@nhnad.co.kr",
     "phoneNumber": "011-1234-5678"
   }

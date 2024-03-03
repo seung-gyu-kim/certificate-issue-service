@@ -2,7 +2,7 @@ package com.nhnacademy.edu.certificateissueservice.controller;
 
 import com.nhnacademy.edu.certificateissueservice.dto.BirthReportRequestDto;
 import com.nhnacademy.edu.certificateissueservice.entity.BirthDeathReportResident;
-import com.nhnacademy.edu.certificateissueservice.service.BirthDeathReportResidentService;
+import com.nhnacademy.edu.certificateissueservice.service.BirthReportResidentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -15,13 +15,13 @@ import java.net.URI;
 @Controller
 @RequestMapping("/residents/{serialNumber}/birth")
 public class BirthReportController {
-    private final BirthDeathReportResidentService birthDeathReportResidentService;
+    private final BirthReportResidentService birthReportResidentService;
 
     @ResponseBody
     @PostMapping
     public ResponseEntity<BirthDeathReportResident> registerBirthReport(@PathVariable("serialNumber") Integer reportSerialNumber,
                                                                         @RequestBody BirthReportRequestDto birthDeathReportRegisterRequestDto) {
-        BirthDeathReportResident save = birthDeathReportResidentService.registerBirthReportResident(reportSerialNumber, birthDeathReportRegisterRequestDto);
+        BirthDeathReportResident save = birthReportResidentService.registerBirthReportResident(reportSerialNumber, birthDeathReportRegisterRequestDto);
         return ResponseEntity.created(URI.create(String.format("/residents/%d/birth/%d",
                         save.getPk().getResidentSerialNumber(),
                         save.getPk().getReportResidentSerialNumber())))
@@ -33,15 +33,15 @@ public class BirthReportController {
     public ResponseEntity<BirthDeathReportResident> modifyBirthReport(@PathVariable("serialNumber") Integer reportSerialNumber,
                                                                       @PathVariable Integer targetSerialNumber,
                                                                       @RequestBody @Valid BirthReportRequestDto requestDto) {
-        BirthDeathReportResident birthDeathReportResident = birthDeathReportResidentService.modifyBirthDeathReportResident(reportSerialNumber, targetSerialNumber, requestDto);
+        BirthDeathReportResident birthDeathReportResident = birthReportResidentService.modifyBirthReportResident(reportSerialNumber, targetSerialNumber, requestDto);
         return ResponseEntity.ok(birthDeathReportResident);
     }
-//
+
     @ResponseBody
     @DeleteMapping("/{targetSerialNumber}")
-    public ResponseEntity<Void> deleteBirthReport(@PathVariable("serialNumber") Integer reportSerialNumber,
+    public ResponseEntity<Void> removeBirthReport(@PathVariable("serialNumber") Integer reportSerialNumber,
                                                   @PathVariable Integer targetSerialNumber) {
-        birthDeathReportResidentService.deleteBirthDeathReportResident(reportSerialNumber, targetSerialNumber);
+        birthReportResidentService.removeBirthReportResident(reportSerialNumber, targetSerialNumber);
         return ResponseEntity.noContent().build();
     }
 }
