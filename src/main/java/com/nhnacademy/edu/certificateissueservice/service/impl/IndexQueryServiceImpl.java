@@ -1,7 +1,7 @@
 package com.nhnacademy.edu.certificateissueservice.service.impl;
 
 import com.nhnacademy.edu.certificateissueservice.dto.ResidentSNAndNameDto;
-import com.nhnacademy.edu.certificateissueservice.dto.response.ResidentReportDto;
+import com.nhnacademy.edu.certificateissueservice.dto.response.ResidentReportResponseDto;
 import com.nhnacademy.edu.certificateissueservice.repository.BirthDeathReportResidentRepository;
 import com.nhnacademy.edu.certificateissueservice.repository.ResidentRepository;
 import com.nhnacademy.edu.certificateissueservice.service.IndexQueryService;
@@ -23,18 +23,18 @@ public class IndexQueryServiceImpl implements IndexQueryService {
     private final BirthDeathReportResidentRepository reportResidentRepository;
 
     @Override
-    public Page<ResidentReportDto> getResidentReport(Pageable pageable) {
-        List<ResidentReportDto> residentReportList = new ArrayList<>();
+    public Page<ResidentReportResponseDto> getResidentReport(Pageable pageable) {
+        List<ResidentReportResponseDto> residentReportList = new ArrayList<>();
         Page<ResidentSNAndNameDto> residentPage = residentRepository.getAllBy(pageable);
         for(ResidentSNAndNameDto resident : residentPage.getContent()) {
-            ResidentReportDto residentReportDto = new ResidentReportDto();
-            residentReportDto.setResidentSerialNumber(resident.getResidentSerialNumber());
-            residentReportDto.setName(resident.getName());
-            residentReportDto.setHasBirthReport(reportResidentRepository.isExistsReporter(resident.getResidentSerialNumber(), "출생"));
-            residentReportDto.setHasDeathReport(reportResidentRepository.isExistsReporter(resident.getResidentSerialNumber(), "사망"));
-            residentReportList.add(residentReportDto);
+            ResidentReportResponseDto residentReportResponseDto = new ResidentReportResponseDto();
+            residentReportResponseDto.setResidentSerialNumber(resident.getResidentSerialNumber());
+            residentReportResponseDto.setName(resident.getName());
+            residentReportResponseDto.setHasBirthReport(reportResidentRepository.isExistsReporter(resident.getResidentSerialNumber(), "출생"));
+            residentReportResponseDto.setHasDeathReport(reportResidentRepository.isExistsReporter(resident.getResidentSerialNumber(), "사망"));
+            residentReportList.add(residentReportResponseDto);
         }
-        Page<ResidentReportDto> residentReportPage = new PageImpl<>(residentReportList, pageable, residentPage.getTotalElements());
+        Page<ResidentReportResponseDto> residentReportPage = new PageImpl<>(residentReportList, pageable, residentPage.getTotalElements());
         return residentReportPage;
     }
 }

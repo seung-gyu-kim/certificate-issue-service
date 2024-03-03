@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ResidentReportDto {
+public class ResidentReportResponseDto {
     private Integer residentSerialNumber;
     private String name;
     private boolean hasBirthReport;

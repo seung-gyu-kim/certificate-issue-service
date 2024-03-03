@@ -27,7 +27,7 @@
         <tbody th:each="residentReport, status : ${residentReportPage}" th:object="${residentReport}">
         <tr>
             <td th:text="*{name}"></td>
-            <td><a th:href="@{/}">주민등록등본</a></td>
+            <td><a th:href="@{/{serialNumber}/resident-registeration-certificate(serialNumber=*{residentSerialNumber})}">주민등록등본</a></td>
             <td><a th:href="@{/}">가족관계증명서</a></td>
             <td><a th:if="*{hasBirthReport}" th:href="@{/}">출생신고서</a></td>
             <td><a th:if="*{hasDeathReport}" th:href="@{/}">사망신고서</a></td>

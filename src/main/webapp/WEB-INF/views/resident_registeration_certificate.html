@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+<body>
+    <table th:object="${residentRegistrationCertificate}">
+        <tr>
+            <th colspan="6">주민등록등본<br />(발급일 : [[*{certificateIssueDate}]], 증명서확인번호: [[*{certificateConfirmationNumber}]])</th>
+        </tr>
+        <tr>
+            <th colspan="2">세대주 성명</th>
+            <td colspan="1" th:text="*{name}"></td>
+            <th colspan="1">세대구성<br />사유 및 일자</th>
+            <td colspan="2">[[*{householdCompositionChangeReasonCode}]]<br />[[*{reportDate}]]</td>
+        </tr>
+        <tr>
+            <th colspan="4">주소</th>
+            <th colspan="2">신고일</th>
+        </tr>
+        <tr th:each="householdMovementAddress, status: *{householdMovementAddressList}" th:object="${householdMovementAddress}">
+            <td colspan="1" th:if="*{lastAddressYn} eq 'Y'">현주소</td>
+            <td colspan="1" th:unless="*{lastAddressYn} eq 'Y'">전주소</td>
+            <td colspan="3" th:text="*{houseMovementAddress}"></td>
+            <td colspan="2" th:text="*{houseMovementReportDate}">2013-03-5</td>
+        </tr>
+        <tr>
+            <th colspan="1">세대주<br />관계</th>
+            <th colspan="1">성명</th>
+            <th colspan="2">주민등록번호</th>
+            <th colspan="1">신고일</th>
+            <th colspan="1">변동사유</th>
+        </tr>
+        <tr th:each="householdCompositionResident, status: *{householdCompositionResidentList}" th:object="${householdCompositionResident}">
+            <td colspan="1" th:text="*{householdRelationshipCode}">본인</td>
+            <td colspan="1" th:text="*{name}">남기준</td>
+            <td colspan="2" th:text="*{residentRegistrationNumber}">790510-*******</td>
+            <td colspan="1" th:text="*{reportDate}">2009-10-02</td>
+            <td colspan="1" th:text="*{householdCompositionChangeReasonCode}">세대분리</td>
+        </tr>
+    </table>
+</body>
+</html>

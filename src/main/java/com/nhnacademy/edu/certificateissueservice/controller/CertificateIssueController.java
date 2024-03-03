@@ -22,6 +22,7 @@ public class CertificateIssueController {
     @GetMapping("/{serialNumber}/resident-registeration-certificate")
     public ModelAndView viewResidentRegistrationCertificate(@PathVariable Integer serialNumber, Pageable pageable) {
         ModelAndView mav = new ModelAndView("resident_registeration_certificate");
+        mav.addObject("residentRegistrationCertificate", certificateIssueService.getResidentRegistrationCertificate(serialNumber));
         return mav;
     }
 }
