@@ -1,7 +1,7 @@
 package com.nhnacademy.edu.certificateissueservice.service.impl;
 
-import com.nhnacademy.edu.certificateissueservice.dto.HouseholdMovementAddressModifyRequestDto;
-import com.nhnacademy.edu.certificateissueservice.dto.HouseholdMovementAddressRegisterRequestDto;
+import com.nhnacademy.edu.certificateissueservice.dto.request.HouseholdMovementAddressModifyRequestDto;
+import com.nhnacademy.edu.certificateissueservice.dto.request.HouseholdMovementAddressRegisterRequestDto;
 import com.nhnacademy.edu.certificateissueservice.entity.Household;
 import com.nhnacademy.edu.certificateissueservice.entity.HouseholdMovementAddress;
 import com.nhnacademy.edu.certificateissueservice.exception.HouseholdNotFoundException;

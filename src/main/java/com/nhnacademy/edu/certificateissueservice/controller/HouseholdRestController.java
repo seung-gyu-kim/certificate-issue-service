@@ -1,6 +1,6 @@
 package com.nhnacademy.edu.certificateissueservice.controller;
 
-import com.nhnacademy.edu.certificateissueservice.dto.HouseholdRegisterRequestDto;
+import com.nhnacademy.edu.certificateissueservice.dto.request.HouseholdRegisterRequestDto;
 import com.nhnacademy.edu.certificateissueservice.entity.Household;
 import com.nhnacademy.edu.certificateissueservice.service.HouseholdService;
 import lombok.RequiredArgsConstructor;

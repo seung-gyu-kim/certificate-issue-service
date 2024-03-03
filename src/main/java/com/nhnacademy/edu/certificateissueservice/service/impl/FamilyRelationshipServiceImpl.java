@@ -1,7 +1,7 @@
 package com.nhnacademy.edu.certificateissueservice.service.impl;
 
-import com.nhnacademy.edu.certificateissueservice.dto.RelationshipModifyRequestDto;
-import com.nhnacademy.edu.certificateissueservice.dto.RelationshipRegisterRequestDto;
+import com.nhnacademy.edu.certificateissueservice.dto.request.RelationshipModifyRequestDto;
+import com.nhnacademy.edu.certificateissueservice.dto.request.RelationshipRegisterRequestDto;
 import com.nhnacademy.edu.certificateissueservice.entity.FamilyRelationship;
 import com.nhnacademy.edu.certificateissueservice.entity.Resident;
 import com.nhnacademy.edu.certificateissueservice.exception.FamilyRelationshipNotFoundException;

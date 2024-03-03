@@ -1,6 +1,6 @@
 package com.nhnacademy.edu.certificateissueservice.service;
 
-import com.nhnacademy.edu.certificateissueservice.dto.BirthReportRequestDto;
+import com.nhnacademy.edu.certificateissueservice.dto.request.BirthReportRequestDto;
 import com.nhnacademy.edu.certificateissueservice.entity.BirthDeathReportResident;
 
 public interface BirthReportResidentService {

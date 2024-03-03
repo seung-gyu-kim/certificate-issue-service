@@ -1,6 +1,6 @@
 package com.nhnacademy.edu.certificateissueservice.service.impl;
 
-import com.nhnacademy.edu.certificateissueservice.dto.BirthReportRequestDto;
+import com.nhnacademy.edu.certificateissueservice.dto.request.BirthReportRequestDto;
 import com.nhnacademy.edu.certificateissueservice.entity.*;
 import com.nhnacademy.edu.certificateissueservice.exception.HouseholdNotFoundException;
 import com.nhnacademy.edu.certificateissueservice.exception.ResidentNotFoundException;

@@ -1,6 +1,6 @@
 package com.nhnacademy.edu.certificateissueservice.controller;
 
-import com.nhnacademy.edu.certificateissueservice.dto.BirthReportRequestDto;
+import com.nhnacademy.edu.certificateissueservice.dto.request.BirthReportRequestDto;
 import com.nhnacademy.edu.certificateissueservice.entity.BirthDeathReportResident;
 import com.nhnacademy.edu.certificateissueservice.service.BirthReportResidentService;
 import lombok.RequiredArgsConstructor;

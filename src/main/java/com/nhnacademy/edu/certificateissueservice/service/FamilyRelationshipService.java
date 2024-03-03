@@ -1,7 +1,7 @@
 package com.nhnacademy.edu.certificateissueservice.service;
 
-import com.nhnacademy.edu.certificateissueservice.dto.RelationshipModifyRequestDto;
-import com.nhnacademy.edu.certificateissueservice.dto.RelationshipRegisterRequestDto;
+import com.nhnacademy.edu.certificateissueservice.dto.request.RelationshipModifyRequestDto;
+import com.nhnacademy.edu.certificateissueservice.dto.request.RelationshipRegisterRequestDto;
 import com.nhnacademy.edu.certificateissueservice.entity.FamilyRelationship;
 
 public interface FamilyRelationshipService {

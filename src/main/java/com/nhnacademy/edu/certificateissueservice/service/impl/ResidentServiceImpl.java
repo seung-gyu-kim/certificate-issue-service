@@ -1,7 +1,7 @@
 package com.nhnacademy.edu.certificateissueservice.service.impl;
 
-import com.nhnacademy.edu.certificateissueservice.dto.ResidentModifyRequestDto;
-import com.nhnacademy.edu.certificateissueservice.dto.ResidentRegisterRequestDto;
+import com.nhnacademy.edu.certificateissueservice.dto.request.ResidentModifyRequestDto;
+import com.nhnacademy.edu.certificateissueservice.dto.request.ResidentRegisterRequestDto;
 import com.nhnacademy.edu.certificateissueservice.entity.Resident;
 import com.nhnacademy.edu.certificateissueservice.exception.ResidentNotFoundException;
 import com.nhnacademy.edu.certificateissueservice.repository.ResidentRepository;

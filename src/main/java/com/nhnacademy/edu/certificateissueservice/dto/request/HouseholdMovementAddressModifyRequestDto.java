@@ -1,4 +1,4 @@
-package com.nhnacademy.edu.certificateissueservice.dto;
+package com.nhnacademy.edu.certificateissueservice.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

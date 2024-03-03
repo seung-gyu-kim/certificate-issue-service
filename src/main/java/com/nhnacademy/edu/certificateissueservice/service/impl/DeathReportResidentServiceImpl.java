@@ -1,6 +1,6 @@
 package com.nhnacademy.edu.certificateissueservice.service.impl;
 
-import com.nhnacademy.edu.certificateissueservice.dto.DeathReportRequestDto;
+import com.nhnacademy.edu.certificateissueservice.dto.request.DeathReportRequestDto;
 import com.nhnacademy.edu.certificateissueservice.entity.BirthDeathReportResident;
 import com.nhnacademy.edu.certificateissueservice.entity.Resident;
 import com.nhnacademy.edu.certificateissueservice.exception.ResidentNotFoundException;

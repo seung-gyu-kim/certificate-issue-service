@@ -1,4 +1,4 @@
-package com.nhnacademy.edu.certificateissueservice.dto;
+package com.nhnacademy.edu.certificateissueservice.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.nhnacademy.edu.certificateissueservice.enums.BirthReportQualificationsCode;
