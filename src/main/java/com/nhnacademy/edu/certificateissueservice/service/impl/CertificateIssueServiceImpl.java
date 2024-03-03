@@ -1,8 +1,10 @@
 package com.nhnacademy.edu.certificateissueservice.service.impl;
 
 import com.nhnacademy.edu.certificateissueservice.dto.CertificateIssueDto;
+import com.nhnacademy.edu.certificateissueservice.dto.FamilyRelationshipDto;
 import com.nhnacademy.edu.certificateissueservice.dto.HouseholdCompositionResidentDto;
 import com.nhnacademy.edu.certificateissueservice.dto.HouseholdMovementAddressDto;
+import com.nhnacademy.edu.certificateissueservice.dto.response.FamilyRelationshipCertificateResponseDto;
 import com.nhnacademy.edu.certificateissueservice.dto.response.ResidentRegistrationCertificateResponseDto;
 import com.nhnacademy.edu.certificateissueservice.entity.CertificateIssue;
 import com.nhnacademy.edu.certificateissueservice.entity.Resident;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -57,8 +60,6 @@ public class CertificateIssueServiceImpl implements CertificateIssueService {
         // 세대 구성원 목록
         List<HouseholdCompositionResidentDto> householdCompositionResidents = householdCompositionResidentRepository.getHouseholdCompositionResidents(serialNumber);
 
-
-
         // 결합
         ResidentRegistrationCertificateResponseDto responseDto = new ResidentRegistrationCertificateResponseDto();
         responseDto.setCertificateIssueDate(now);
@@ -70,6 +71,43 @@ public class CertificateIssueServiceImpl implements CertificateIssueService {
         });
         responseDto.setHouseholdMovementAddressList(householdMovementAddressHistory);
         responseDto.setHouseholdCompositionResidentList(householdCompositionResidents);
+        return responseDto;
+    }
+
+    @Override
+    @Transactional
+    public FamilyRelationshipCertificateResponseDto getFamilyRelationshipCertificate(Integer serialNumber) {
+        // 증명서 발급
+        CertificateIssue certificateIssue = new CertificateIssue();
+        Long certificateConfirmationNumber = ThreadLocalRandom.current().nextLong(1000000000000000L, 9999999999999999L);
+        Resident resident = residentRepository.findById(serialNumber).orElseThrow(() -> new ResidentNotFoundException(serialNumber));
+        LocalDate now = LocalDate.now();
+
+        certificateIssue.setCertificateConfirmationNumber(certificateConfirmationNumber);
+        certificateIssue.setResident(resident);
+        certificateIssue.setCertificateTypeCode("가족관계증명서");
+        certificateIssue.setCertificateIssueDate(now);
+        certificateIssueRepository.save(certificateIssue);
+
+        // 가족 관계 조회
+        List<FamilyRelationshipDto> familyRelationshipDtoList = new ArrayList<>();
+        familyRelationshipDtoList.add(new FamilyRelationshipDto(
+                "본인",
+                resident.getName(),
+                resident.getBirthDate(),
+                resident.getResidentRegistrationNumber(),
+                resident.getGenderCode())
+        );
+        List<FamilyRelationshipDto> familyRelationshipsWithoutMe = familyRelationshipRepository.getFamilyRelationships(serialNumber);
+        familyRelationshipDtoList.addAll(familyRelationshipsWithoutMe);
+
+        // 결합
+        FamilyRelationshipCertificateResponseDto responseDto = new FamilyRelationshipCertificateResponseDto();
+        responseDto.setCertificateIssueDate(now);
+        responseDto.setCertificateConfirmationNumber(certificateConfirmationNumber);
+        responseDto.setRegistrationBaseAddress(resident.getRegistrationBaseAddress());
+        responseDto.setFamilyRelationshipList(familyRelationshipDtoList);
+
         return responseDto;
     }
 }

@@ -28,11 +28,11 @@
         <tr>
             <td th:text="*{name}"></td>
             <td><a th:href="@{/{serialNumber}/resident-registeration-certificate(serialNumber=*{residentSerialNumber})}">주민등록등본</a></td>
-            <td><a th:href="@{/}">가족관계증명서</a></td>
-            <td><a th:if="*{hasBirthReport}" th:href="@{/}">출생신고서</a></td>
-            <td><a th:if="*{hasDeathReport}" th:href="@{/}">사망신고서</a></td>
+            <td><a th:href="@{/{serialNumber}/family-relationship-certificate(serialNumber=*{residentSerialNumber})}">가족관계증명서</a></td>
+            <td><a th:if="*{hasBirthReport}">출생신고서</a></td>
+            <td><a th:if="*{hasDeathReport}">사망신고서</a></td>
             <td><a th:href="@{/{serialNumber}/certificate-issues(serialNumber=*{residentSerialNumber})}">발급목록</a></td>
-            <td><a th:href="@{/}">삭제</a></td>
+            <td><a>삭제</a></td>
         </tr>
         </tbody>
     </table>

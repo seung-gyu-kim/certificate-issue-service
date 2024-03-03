@@ -25,4 +25,11 @@ public class CertificateIssueController {
         mav.addObject("residentRegistrationCertificate", certificateIssueService.getResidentRegistrationCertificate(serialNumber));
         return mav;
     }
+
+    @GetMapping("/{serialNumber}/family-relationship-certificate")
+    public ModelAndView viewFamilyRelationshipCertificate(@PathVariable Integer serialNumber, Pageable pageable) {
+        ModelAndView mav = new ModelAndView("family_relationship_certificate");
+        mav.addObject("familyRelationshipCertificate", certificateIssueService.getFamilyRelationshipCertificate(serialNumber));
+        return mav;
+    }
 }

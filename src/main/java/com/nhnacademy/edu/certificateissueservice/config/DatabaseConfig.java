@@ -48,7 +48,7 @@ public class DatabaseConfig {
         final DataSourceInitializer initializer = new DataSourceInitializer();
         initializer.setDataSource(dataSource);
         initializer.setDatabasePopulator(databasePopulator());
-        initializer.setDatabaseCleaner(databaseCleaner());
+//        initializer.setDatabaseCleaner(databaseCleaner());
         return initializer;
     }
 
