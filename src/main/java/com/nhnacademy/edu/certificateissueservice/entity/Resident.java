@@ -38,7 +38,7 @@ public class Resident {
     @Column(name = "name", length = 100, nullable = false)
     private String name;
 
-    @Column(name = "resident_registration_number", length = 300, nullable = false)
+    @Column(name = "resident_registration_number", length = 300, nullable = false, unique = true)
     private String residentRegistrationNumber;
 
     @Column(name = "gender_code", length = 20, nullable = false)

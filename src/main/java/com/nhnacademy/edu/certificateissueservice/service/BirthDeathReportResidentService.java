@@ -1,11 +1,10 @@
 package com.nhnacademy.edu.certificateissueservice.service;
 
-import com.nhnacademy.edu.certificateissueservice.dto.BirthDeathReportModifyRequestDto;
-import com.nhnacademy.edu.certificateissueservice.dto.BirthDeathReportRegisterRequestDto;
+import com.nhnacademy.edu.certificateissueservice.dto.BirthReportRequestDto;
 import com.nhnacademy.edu.certificateissueservice.entity.BirthDeathReportResident;
 
 public interface BirthDeathReportResidentService {
-    BirthDeathReportResident registerBirthDeathReportResident(BirthDeathReportRegisterRequestDto birthDeathReportRegisterRequestDto);
-    BirthDeathReportResident modifyBirthDeathReportResident(BirthDeathReportModifyRequestDto birthDeathReportRegisterRequestDto);
-    void deleteBirthDeathReportResident(Integer reportResidentSerialNumber, Integer targetResidentSerialNumber, boolean isBirthReport);
+    BirthDeathReportResident registerBirthReportResident(Integer reportSerialNumber, BirthReportRequestDto requestDto);
+    BirthDeathReportResident modifyBirthDeathReportResident(Integer reportSerialNumber, Integer targetSerialNumber, BirthReportRequestDto requestDto);
+    void deleteBirthDeathReportResident(Integer reportResidentSerialNumber, Integer targetResidentSerialNumber);
 }

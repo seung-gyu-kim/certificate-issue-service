@@ -19,7 +19,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Service
 public class ResidentServiceImpl implements ResidentService {
     private final ResidentRepository residentRepository;
-    private final AtomicInteger sequence = new AtomicInteger();
+    public static final AtomicInteger sequence = new AtomicInteger();
 
     public ResidentServiceImpl(ResidentRepository residentRepository) {
         this.residentRepository = residentRepository;

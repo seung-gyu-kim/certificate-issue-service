@@ -1,28 +1,66 @@
-### 출생 신고 API 등록
-#insert into birth_death_report_resident values (7, '출생', 4, '20120317', '부', null, 'nam@nhnad.co.kr', '010-1234-5678');
-POST http://localhost:8080/residents/1/birth
+### 출생신고서 등록 POST /residents/{serialNumber}/birth
+POST http://localhost:8080/residents/4/birth
 Content-Type: application/json
 Accept: application/json
 
 {
-  "targetSerialNumber": 4,
-  "birthDeathReportDate": "19790510",
-  "reportQualificationsCode": "부",
-  "emailAddress": "nam@nhnad.co.kr",
-  "phoneNumber": "010-1234-5678"
+  "birthReportDate": "19790510",
+  "targetResident": {
+    "name" : "남기호",
+    "genderCode" : "남",
+    "birthDate" : "20120315145900",
+    "birthPlaceCode" : "병원",
+    "registrationBaseAddress" : "경기도 성남시 분당구 대왕판교로645번길"
+  },
+  "fatherResident":  {
+    "name" : "남기준",
+    "residentRegistrationNumber" : "790510-1234564"
+  },
+  "motherResident": {
+    "name" : "이주은",
+    "residentRegistrationNumber" : "820821-1234565"
+  },
+  "reportResident": {
+    "name" : "남기준",
+    "residentRegistrationNumber" : "130914-1234561",
+    "reportQualificationsCode": "부",
+    "emailAddress": "nam@nhnad.co.kr",
+    "phoneNumber": "010-1234-5678"
+  }
 }
 
-### 출생 신고 API 수정
+### 출생신고서 수정 PUT /residents/{serialNumber}/birth/{targetSerialNumber}
 PUT http://localhost:8080/residents/4/birth/7
 Content-Type: application/json
 Accept: application/json
 
 {
-  "reportQualificationsCode": "모",
-  "emailAddress": "nam2@nhnad.co.kr"
+  "birthReportDate": "19790510",
+  "targetResident": {
+    "name" : "남기미",
+    "genderCode" : "여",
+    "birthDate" : "20120315145900",
+    "birthPlaceCode" : "병원",
+    "registrationBaseAddress" : "경기도 성남시 분당구 대왕판교로645번길"
+  },
+  "fatherResident":  {
+    "name" : "남기준",
+    "residentRegistrationNumber" : "790510-1234564"
+  },
+  "motherResident": {
+    "name" : "이주은",
+    "residentRegistrationNumber" : "820821-1234565"
+  },
+  "reportResident": {
+    "name" : "남기준",
+    "residentRegistrationNumber" : "130914-1234561",
+    "reportQualificationsCode": "부",
+    "emailAddress": "nam2@nhnad.co.kr",
+    "phoneNumber": "011-1234-5678"
+  }
 }
 
-### 출생 신고 API 삭제
+### 출생신고서 삭제 DELETE /residents/{serialNumber}/birth/{targetSerialNumber}
 DELETE http://localhost:8080/residents/4/birth/7
 Content-Type: application/json
 Accept: application/json

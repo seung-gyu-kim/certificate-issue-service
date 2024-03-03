@@ -1,7 +1,6 @@
 package com.nhnacademy.edu.certificateissueservice.entity;
 
 import lombok.*;
-import org.hibernate.annotations.Entity;
 
 import javax.persistence.*;
 import java.io.Serializable;

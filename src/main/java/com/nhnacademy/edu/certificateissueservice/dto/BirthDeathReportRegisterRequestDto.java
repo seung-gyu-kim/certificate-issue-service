@@ -29,4 +29,7 @@ public class BirthDeathReportRegisterRequestDto {
     private String emailAddress;
     @NotNull
     private String phoneNumber;
+    private Integer fatherSerialNumber;
+    private Integer motherSerialNumber;
+    private Integer householdSerialNumber;
 }

@@ -1,6 +1,6 @@
 package com.nhnacademy.edu.certificateissueservice.entity;
 
-import com.nhnacademy.edu.certificateissueservice.dto.BirthDeathReportRegisterRequestDto;
+import com.nhnacademy.edu.certificateissueservice.enums.ReportQualificationsCode;
 import lombok.*;
 
 import javax.persistence.*;
@@ -31,8 +31,9 @@ public class BirthDeathReportResident {
     @Column(name = "birth_death_report_date", nullable = false)
     private LocalDate birthDeathReportDate;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "birth_report_qualifications_code", length = 20)
-    private String birthReportQualificationsCode;
+    private ReportQualificationsCode birthReportQualificationsCode;
 
     @Column(name = "death_report_qualifications_code", length = 20)
     private String deathReportQualificationsCode;
@@ -62,20 +63,5 @@ public class BirthDeathReportResident {
 
         @Column(name = "report_resident_serial_number", nullable = false, columnDefinition = "INT(11)")
         private Integer reportResidentSerialNumber;
-    }
-
-    public static BirthDeathReportResident of(BirthDeathReportRegisterRequestDto request, BirthDeathReportResident.PK pk, Resident resident) {
-        BirthDeathReportResident birthDeathReportResident = new BirthDeathReportResident();
-        birthDeathReportResident.setPk(pk);
-        birthDeathReportResident.setBirthDeathReportDate(request.getBirthDeathReportDate());
-        if(Boolean.TRUE.equals(request.getIsBirthReport())) {
-            birthDeathReportResident.setBirthReportQualificationsCode(request.getReportQualificationsCode());
-        } else {
-            birthDeathReportResident.setDeathReportQualificationsCode(request.getReportQualificationsCode());
-        }
-        birthDeathReportResident.setEmailAddress(request.getEmailAddress());
-        birthDeathReportResident.setPhoneNumber(request.getPhoneNumber());
-        birthDeathReportResident.setResident(resident);
-        return birthDeathReportResident;
     }
 }
