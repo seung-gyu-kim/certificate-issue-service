@@ -6,22 +6,35 @@ import com.nhnacademy.edu.certificateissueservice.entity.Resident;
 import com.nhnacademy.edu.certificateissueservice.exception.ResidentNotFoundException;
 import com.nhnacademy.edu.certificateissueservice.repository.ResidentRepository;
 import com.nhnacademy.edu.certificateissueservice.service.ResidentService;
-import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 
-@RequiredArgsConstructor
+@DependsOn("dataSourceInitializer")
 @Transactional
 @Service
 public class ResidentServiceImpl implements ResidentService {
     private final ResidentRepository residentRepository;
+    private final AtomicInteger sequence = new AtomicInteger();
+
+    public ResidentServiceImpl(ResidentRepository residentRepository) {
+        this.residentRepository = residentRepository;
+    }
+
+    @PostConstruct
+    public void init() {
+        residentRepository.findAll().forEach(resident ->
+                sequence.set(Math.max(sequence.get(), resident.getResidentSerialNumber())));
+    }
 
     @Override
     public Resident registerResident(ResidentRegisterRequestDto residentRegisterRequestDto) {
         Resident resident = new Resident();
-        resident.setResidentSerialNumber(residentRegisterRequestDto.getResidentSerialNumber());
+        resident.setResidentSerialNumber(sequence.incrementAndGet());
         resident.setName(residentRegisterRequestDto.getName());
         resident.setResidentRegistrationNumber(residentRegisterRequestDto.getResidentRegistrationNumber());
         resident.setGenderCode(residentRegisterRequestDto.getGenderCode());

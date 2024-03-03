@@ -14,8 +14,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class ResidentRegisterRequestDto {
     @NotNull
-    private Integer residentSerialNumber;
-    @NotNull
     private String name;
     @NotNull
     private String residentRegistrationNumber;
